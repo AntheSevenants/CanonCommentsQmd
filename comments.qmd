@@ -1,0 +1,249 @@
+---
+title: "CanonCommentsQmd"
+description: Dit document geeft een overzicht van alle geschreven reacties op de [Canonenquête](https://ctb.kantl.be/projecten/wetenschappelijke-ondersteuning-literaire-canon-en-canonfestival) uit 2022. Ter info zijn ook een aantal demografische kenmerken meegegeven.
+format: 
+   html: default
+   docx: default
+   pdf: default
+lang: nl
+#bibliography: references.bib
+#csl: ../unified-style-sheet-for-linguistics.csl
+format-links: false
+title-block-banner: "#FDA9C0"
+title-block-banner-color: "#EE2026"
+toc: true
+toc-depth: 4
+toc-location: right
+css: style.css
+execute:
+  echo: false
+author:
+  - name: Lieke Van Deinsen
+    email: lieke.vandeinsen@kuleuven.be
+    orcid: 0000-0001-6732-602X
+    affiliations:
+      - name: KU Leuven
+  - name: Anthe Sevenants
+    email: anthe.sevenants@kuleuven.be
+    orcid: 0000-0002-5055-770X
+    affiliations:
+      - name: KU Leuven
+  - name: Freek Van de Velde
+    email: freek.vandevelde@kuleuven.be
+    orcid: 0000-0003-3050-2207
+    affiliations:
+      - name: KU Leuven
+  - name: Gitte Vertommen
+    email: gitte.vertommen@kuleuven.be
+    affiliations:
+      - name: KU Leuven
+---
+
+```{python}
+import pandas as pd
+
+# Permanently changes the pandas settings
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
+```
+
+```{python}
+df = pd.read_csv("data_anon.csv")
+
+def filter_response(questions, add_demography=True):
+    columns = questions
+
+    value_column = questions[0]
+    main_question = questions[-1]
+
+    custom_scale = None
+
+    # If likert value scale, add custom sorting
+    if len(questions) == 2 and len(df[value_column].unique()) == 7:
+        custom_scale = ["Helemaal oneens", "Oneens", "Beetje oneens",
+            "Neutraal", "Beetje eens", "Eens", "Helemaal eens"]
+    elif value_column == "Q9":
+        custom_scale = ["...helemaal geen speciale aandacht besteden aan de Nederlandstalige literaire klassieken", "...de Nederlandstalige literaire klassieken behandelen, zonder verplichte leeslijst", "...de Nederlandstalige literaire klassieken behandelen, met verplichte leeslijst", "Geen mening" ]
+    elif value_column in [ "Q10", "Q11" ]:
+        custom_scale = ["Ja, voor alle onderwijsrichtingen", "Ja, maar alleen voor leerlingen van ...", "Nee", "Geen mening"]
+
+    if custom_scale is not None:
+        df[value_column] = pd.Categorical(df[value_column], custom_scale)
+
+    if add_demography:
+        columns += [ "QPERS_GENDER", "QPERS_BIRTH_COUNTRY", "QPERS_LANG", "QPERS_EDU", "QPERS_LING_JOB", "Q53", "Q55" ]
+
+    filtered_df = df[columns].dropna(subset=[main_question])
+    sorted_df = filtered_df.sort_values(by=[value_column])
+
+    return sorted_df
+```
+
+::: {.callout-note icon=false}
+Niet alle kolomnamen zijn transparant:
+
+- Q53: Ik ben/was docent Nederlands
+- Q55: Ik werk binnen het Nederlandse taalgebied
+
+De waarden voor deze kolommen kunnen 'NA' zijn. Wanneer een respondent aangaf geen taalgerelateerde job te hebben, werden deze vragen niet getoond.
+:::
+
+## Q9
+
+**In het voortgezet/secundair onderwijs moeten we...**
+
+- ...**helemaal geen** speciale aandacht besteden aan de Nederlandstalige literaire klassieken
+- ...de Nederlandstalige literaire klassieken behandelen, **zonder** verplichte leeslijst
+- ...de Nederlandstalige literaire klassieken behandelen, **met** verplichte leeslijst
+- Geen mening
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q9", "Q9_ELAB" ])
+```
+
+## Q10
+
+**Leerlingen in het voortgezet/secundair onderwijs zouden zeker enkele Nederlandstalige literaire klassiekers moeten lezen.**
+
+- Ja, voor alle onderwijsrichtingen
+- Ja, maar alleen voor leerlingen van ... (meerdere onderwijsvormen mogelijk)
+- Nee
+- Geen mening
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q10", "Q10_ELAB" ])
+```
+
+## Q11
+
+**In het voortgezet/secundair onderwijs moeten leerlingen een elementaire kennis van de Nederlandstalige literatuurgeschiedenis aangeboden krijgen.**
+
+- Ja, voor alle onderwijsrichtingen
+- Ja, maar alleen voor leerlingen van ... (meerdere onderwijsvormen mogelijk)
+- Nee
+- Geen mening
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q11", "Q11_ELAB" ])
+```
+
+## Q14
+
+**Een Nederlandstalige literaire canon moet streven naar genderdiversiteit.**
+
+- Helemaal oneens
+- Oneens
+- Beetje oneens
+- Neutraal
+- Beetje eens
+- Eens
+- Helemaal eens
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q14", "Q14_ELAB" ])
+```
+
+## Q15
+
+**Auteurs van verschillende culturele achtergronden moeten vertegenwoordigd zijn in de canon.**
+
+- Helemaal oneens
+- Oneens
+- Beetje oneens
+- Neutraal
+- Beetje eens
+- Eens
+- Helemaal eens
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q15", "Q15_ELAB" ])
+```
+
+## Q12_B_CanonMultiple
+
+**Er kunnen meerdere Nederlandstalige literaire canons naast elkaar bestaan.**
+
+Bijvoorbeeld een wetenschappelijke naast een scholierencanon of een Surinaamse naast een Vlaamse canon.
+
+- Helemaal oneens
+- Oneens
+- Beetje oneens
+- Neutraal
+- Beetje eens
+- Eens
+- Helemaal eens
+
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q12_B_CanonMultiple", "Q12_B_Elaboration" ])
+```
+
+## Q16
+
+**Een literaire canon moet Nederlandstalige teksten uit de voormalige koloniale gebieden (denk aan Suriname, de Caribische eilanden, Indonesië, Congo en Zuid-Afrika) bevatten.**
+
+- Helemaal oneens
+- Oneens
+- Beetje oneens
+- Neutraal
+- Beetje eens
+- Eens
+- Helemaal eens
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q16", "Q16_ELAB" ])
+```
+
+## Q17
+
+**In een Nederlandstalige literaire canon horen ook kinder- en jeugdliteratuur.**
+
+- Helemaal oneens
+- Oneens
+- Beetje oneens
+- Neutraal
+- Beetje eens
+- Eens
+- Helemaal eens
+
+```{python}
+#| column: screen-inset
+filter_response([ "Q17", "Q17_ELAB" ])
+```
+
+## QPERS_IDEAS
+
+**Heb je ideeën voor projecten die de canon in de kijker kunnen zetten?**
+
+```{python}
+#| column: screen-inset
+filter_response([ "QPERS_IDEAS" ])
+```
+
+## QPERS_ORIGIN
+
+**Hoe ben je bij deze enquête terechtgekomen?**
+
+```{python}
+#| column: screen-inset
+filter_response([ "QPERS_ORIGIN" ])
+```
+
+## QPERS_COMPLAIN
+
+**Eventuele opmerkingen**
+
+```{python}
+#| column: screen-inset
+filter_response([ "QPERS_COMPLAIN" ])
+```
+
