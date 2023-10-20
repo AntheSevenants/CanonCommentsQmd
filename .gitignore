@@ -162,3 +162,5 @@ cython_debug/
 # Quarto stuff
 *_files/
 *.html
+*.docx
+*.pdf
