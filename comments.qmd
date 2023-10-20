@@ -1,5 +1,5 @@
 ---
-title: "CanonCommentsQmd"
+title: "Canonenquête 2022: overzicht van vrije commentaren"
 description: Dit document geeft een overzicht van alle geschreven reacties op de [Canonenquête](https://ctb.kantl.be/projecten/wetenschappelijke-ondersteuning-literaire-canon-en-canonfestival) uit 2022. Ter info zijn ook een aantal demografische kenmerken meegegeven.
 format: 
    html: default
