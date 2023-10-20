@@ -37,6 +37,8 @@ author:
     email: gitte.vertommen@kuleuven.be
     affiliations:
       - name: KU Leuven
+filters:
+  - docx-landscape.lua
 ---
 
 ```{python}
@@ -89,6 +91,8 @@ Niet alle kolomnamen zijn transparant:
 
 De waarden voor deze kolommen kunnen 'NA' zijn. Wanneer een respondent aangaf geen taalgerelateerde job te hebben, werden deze vragen niet getoond.
 :::
+
+::: landscape
 
 ## Q9
 
@@ -247,3 +251,4 @@ filter_response([ "QPERS_ORIGIN" ])
 filter_response([ "QPERS_COMPLAIN" ])
 ```
 
+:::
