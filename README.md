@@ -15,4 +15,4 @@ Yes. Word and PDF output is available from the [Releases](TODO) tab.
 
 You can render the overview using [Quarto](https://quarto.org/) and Python. Make sure to install the necessary dependencies from `requirements.txt`. Then, you can render `comments.qmd` found in this repository.
 
-Also, make sure you have downloaded the [dataset](TODO). Place it inside the repository directory as `data_anon.csv`.
+Also, make sure you have downloaded the [dataset](https://zenodo.org/records/10033489). Place it inside the repository directory as `data_anon.csv`.
