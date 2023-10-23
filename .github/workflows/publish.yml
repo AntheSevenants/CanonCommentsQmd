@@ -36,3 +36,6 @@ jobs:
         with:
           # Upload docs
           path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
