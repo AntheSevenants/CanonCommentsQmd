@@ -5,11 +5,11 @@ This repository contains the code to generate an overview of all elaborations on
 
 ## How to access the overview?
 
-The overview is available at TODO.
+The online overview is available at [here](https://anthesevenants.github.io/CanonCommentsQmd/).
 
 ## Can I download the overview?
 
-Yes. Word and PDF output is available from the [Releases](TODO) tab.
+Yes. Word output is available from the [Releases](https://github.com/AntheSevenants/CanonCommentsQmd/releases) tab.
 
 ## How do I render the overview myself?
 
